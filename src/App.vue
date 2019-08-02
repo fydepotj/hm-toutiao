@@ -1,5 +1,8 @@
 <template>
-  <div id="app">App</div>
+  <div id="app">
+    App
+    <el-button type="danger" round>危险按钮</el-button>
+  </div>
 </template>
 
 <script>
