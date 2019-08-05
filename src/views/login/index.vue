@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     //  自定义校验函数
@@ -77,9 +78,13 @@ export default {
         .then(res => {
           // res 是响应对象  数据属于响应主体
           //   console.log(res.data)
+          // 存储用户信息
+          store.setUser(res.data.data)
+
           this.$router.push('/')
         })
         .catch(() => {
+          // console.log(err)
           // 请求失败 提示 手机号或验证码错误
           this.$message.error('手机号或验证码错误')
         })
