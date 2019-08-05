@@ -25,5 +25,18 @@ Vue.use(ElementUI)
 // 职责2：创建一个根 vue 实例
 new Vue({
   router,
+  /**
+   *  render: function (createElement) {
+   *    return createElement(App);
+   *  }
+   *
+   *
+   * import App from './App'
+   *   new Vue({
+   *    el: '#root',
+   *    template: '<App></App>',
+   *    components: { App }
+   *  })
+   */
   render: h => h(App)
 }).$mount('#app')
