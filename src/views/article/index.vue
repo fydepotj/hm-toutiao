@@ -40,6 +40,17 @@
       </el-form>
     </el-card>
     <!-- 结果区域 -->
+    <el-card>
+      <div slot="header">根据筛选条件并查询到 0 条结果</div>
+      <!-- 表格组件 -->
+      <el-table :data="articles">
+        <el-table-column prop="id" label="编号"></el-table-column>
+      </el-table>
+      <!-- 分页组件 -->
+      <div style="text-align: center; margin-top: 30px;">
+        <el-pagination background layout="prev, pager, next, total" :total="1000"></el-pagination>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -57,10 +68,16 @@ export default {
       // 频道下拉选项数据
       channelOptions: [{ label: 'js', value: '10000' }],
       // 日期数据
-      dateArr: []
+      dateArr: [],
+      // 文章列表数据
+      articles: [{ id: 1001 }, { id: 1002 }]
     }
   }
 }
 </script>
 
-<style scoped lang='less'></style>
+<style scoped lang='less'>
+.el-card {
+  margin-bottom: 20px;
+}
+</style>
