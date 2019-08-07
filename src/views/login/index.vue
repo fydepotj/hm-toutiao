@@ -64,30 +64,44 @@ export default {
   methods: {
     login () {
       // 对表单 进行整体校验
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          console.log('success')
+          //     console.log('success')
+          //   }
+          // })
+          // //   校验成功发起登录请求
+          // this.$http
+          //   .post(
+          //     'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+          //     this.loginForm
+          //   )
+          //   .then(res => {
+          //     // res 是响应对象  数据属于响应主体
+          //     //   console.log(res.data)
+          //     // 存储用户信息
+          //     store.setUser(res.data.data)
+
+          //     this.$router.push('/')
+          //   })
+          //   .catch(() => {
+          //     // console.log(err)
+          //     // 请求失败 提示 手机号或验证码错误
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+
+          // 怎么处理 await 使用的时候  失败请求
+          // 怎么捕获代码异常（报错）try{ 可能会报错的代码 }catch(e){ 处理错误 }
+          try {
+            const {
+              data: { data }
+            } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch (error) {
+            this.$messagel.error('手机号验证码错误')
+          }
         }
       })
-      //   校验成功发起登录请求
-      this.$http
-        .post(
-          'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-          this.loginForm
-        )
-        .then(res => {
-          // res 是响应对象  数据属于响应主体
-          //   console.log(res.data)
-          // 存储用户信息
-          store.setUser(res.data.data)
-
-          this.$router.push('/')
-        })
-        .catch(() => {
-          // console.log(err)
-          // 请求失败 提示 手机号或验证码错误
-          this.$message.error('手机号或验证码错误')
-        })
     }
   }
 }

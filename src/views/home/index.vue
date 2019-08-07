@@ -48,15 +48,15 @@
       <el-header>
         <span class="el-icon-s-fold" @click="toggleMenu()"></span>
         <span class="text">一匹黑马有限公司</span>
-        <el-dropdown class="my-dropdown">
+        <el-dropdown class="my-dropdown" @command="clickMenu">
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt />
-            下拉菜单
+            <img :src="photo" alt />
+            {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-setting" command="setting">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -69,14 +69,41 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
-    return { isCollapse: false }
+    return {
+      isCollapse: false,
+      name: '',
+      photo: ''
+    }
+  },
+  created () {
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
   },
   methods: {
     toggleMenu () {
       // 切换侧边栏的 展开 与 收起
       this.isCollapse = !this.isCollapse
+    },
+    // click 绑定的是原生的 DOM 事件  绑定在组件上认为是自定义事件  绑定内部触发无效时间
+    // click 绑定在组件解析后的 DOM 上  使用事件修饰符 prevent native 绑定原生事件
+    setting () {
+      this.$router.push('/setting')
+    },
+    logout () {
+      // 清除用户信息
+      store.clearUser()
+      // 跳转登录
+      this.$router.push({ name: 'login' })
+    },
+    // 如果这个事件有默认的传参  你想接收参数  不加括号
+    clickMenu (menuType) {
+      // menuType === setting   this.setting()
+      // menuType === logout   this.logout()
+      this[menuType]()
     }
   }
 }
