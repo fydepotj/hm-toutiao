@@ -95,7 +95,7 @@ export default {
       // 收集请求参数（表单数据）
       reqParams: {
         status: null,
-        channel_id: 2,
+        channel_id: null,
         begin_pubdate: null,
         end_pubdate: null,
         page: 1,
@@ -121,7 +121,7 @@ export default {
       // 发布文章 和 编辑文章 使用同一个路由规则
       // 如果是使用 params 是路径传参 /publish  /publish/101  两个路由规则
       // 使用 query 传参  /publish  /publish?id=101
-      this.$router.push(`/publish${id}`)
+      this.$router.push(`/publish?id=${id}`)
     },
     // 删除文章
     del (id) {
