@@ -9,10 +9,10 @@
         <el-table-column label="总评论数" prop="total_comment_count"></el-table-column>
         <el-table-column label="粉丝评论数" prop="fans_comment_count"></el-table-column>
         <el-table-column label="状态">
-          <tempalte slot-scope="scope">{{scope.row.comment_status?'正常':'关闭'}}</tempalte>
+          <template slot-scope="scope">{{scope.row.comment_status?'正常':'关闭'}}</template>
         </el-table-column>
         <el-table-column label="操作">
-          <tempalte slot-scope="scope" width="100px">
+          <template slot-scope="scope" width="100px">
             <el-button
               @click="toggleStatus(scope.row)"
               v-if="!scope.row.comment_status"
@@ -20,7 +20,7 @@
               size="small"
             >打开评论</el-button>
             <el-button @click="toggleStatus(scope.row)" v-else type="danger" size="small">关闭评论</el-button>
-          </tempalte>
+          </template>
         </el-table-column>
       </el-table>
       <el-pagination
